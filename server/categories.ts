@@ -11,6 +11,7 @@ import { mockCategories } from "@/lib/data";
 const mode = process.env.MODE;
 
 const isTemplate = mode ? mode === "template" : true
+console.log({isTemplate});  
 
 export const CategoriesService = {
     getCategories: async (params: any) : Promise<CategoryItem[]> => {
@@ -22,7 +23,7 @@ export const CategoriesService = {
     },
     getCategory: async (id: any) : Promise<CategoryItem | undefined> => {
         if (!isTemplate) {
-            // return (await api.get(`products/categories/${id}`)).data;
+            return (await api.get(`products/categories/${id}`)).data;
         } else {
             return mockCategories.find((category: any) => category.id === id);
         }
