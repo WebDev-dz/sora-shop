@@ -21,7 +21,7 @@ export function Footer() {
             <p className="text-sm text-muted-foreground">{t("footer.description")}</p>
             <div className="mt-4 flex items-center">
               <a
-                href="https://web.facebook.com/profile.php?id=100067677527627"
+                href={store.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-2"

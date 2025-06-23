@@ -1,22 +1,17 @@
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Order } from '@/types/orders';
+import { CreateOrder, Order } from '@/types/orders';
 import { toast } from 'sonner';
+import { api } from './api';
 
-// Create an axios instance with default config
-const api = axios.create({
-  baseURL: '/apis',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+
 
 // Define the Order type
 
 
 
 
-const createOrder = async (order: Omit<Order, 'id' | 'created_at' | 'updated_at'>): Promise<Order> => {
+const createOrder = async (order: CreateOrder): Promise<Order> => {
   const { data } = await api.post<Order, {data: Order}>('/orders', order);
   return data;
 };

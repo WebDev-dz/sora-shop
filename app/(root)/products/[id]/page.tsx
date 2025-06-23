@@ -14,9 +14,16 @@ export default async function ProductPage({
   const { id } = await params;
   await searchParams;
   const product = await ProductsService.getProduct(id);
-  const variations = await VariationsService.getVariations(id, { per_page: 20 });
+  const variations = await VariationsService.getVariations(id, {
+    per_page: 20,
+  });
   // You can now access searchParams here
   console.log("Search Params:", searchParams);
 
-  return <ProductView params={params} initialData={{ product ,variations }} searchParams={searchParams} />;
+  return (
+    <ProductView
+      params={params}
+      initialData={{ product, variations }}
+    />
+  );
 }

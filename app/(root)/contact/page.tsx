@@ -95,7 +95,7 @@ export default function ContactPage() {
           </Button>
         </form>
         {status && (
-          <p className={`mt-4 text-center ${status.includes("error") ? "text-red-500" : "text-green-500"}`}>
+          <p className={`mt-4 text-center ${status.includes("error") ? "text-red-500" : "text-blue-500"}`}>
             {status}
           </p>
         )}

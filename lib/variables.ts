@@ -13,12 +13,12 @@ export interface Store {
 }
 
 export const store: Store = {
-  name: process.env.NEXT_PUBLIC_STORE_NAME || "Store Name",
-  logo: process.env.NEXT_PUBLIC_STORE_LOGO || "/store.logo.png",
-  phone: process.env.NEXT_PUBLIC_STORE_PHONE_NUMBER || "+213 000 00 00 00",
-  address: process.env.NEXT_PUBLIC_STORE_ADDRESS || "Address",
-  email: process.env.NEXT_PUBLIC_STORE_EMAIL || "contact@example.com",
-  facebook: process.env.NEXT_PUBLIC_STORE_FACEBOOK || "https://facebook.com/example"
+  name: process.env.STORE_NAME || "Store Name",
+  logo: process.env.STORE_LOGO || "/store.logo.png",
+  phone: process.env.STORE_PHONE_NUMBER || "+213 000 00 00 00",
+  address: process.env.STORE_ADDRESS || "Address",
+  email: process.env.STORE_EMAIL || "contact@example.com",
+  facebook: process.env.STORE_FACEBOOK || "https://web.facebook.com/profile.php?id=100067677527627"
 };
 
 export const navItems: NavItem[] = [

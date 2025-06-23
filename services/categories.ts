@@ -1,14 +1,9 @@
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { CategoryItem } from '@/types/categories';
+import { api } from './api';
 
-// Create an axios instance with default config
-const api = axios.create({
-  baseURL: '/apis',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+
 
 
 

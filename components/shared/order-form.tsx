@@ -1,226 +1,339 @@
 "use client";
 
-import React, { FormEvent, useCallback, useEffect, useMemo } from "react";
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { Loader2, AlertCircle, Minus, Plus } from "lucide-react";
+
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { useEffect, useState } from "react";
 import { useLanguage } from "@/components/language-provider";
-import { City, Wilaya } from "@/types";
+import { Wilaya, City } from "@/types";
+import { OrderFormData, orderFormSchema } from "@/validations/order";
+
 
 type OrderFormProps = {
-  formData: {
-    full_name: string;
-    phone: string;
-    address: string;
-    wilaya: string;
-    municipality: string;
-  };
-  errors: Partial<Record<keyof OrderFormProps["formData"] | "submit", string>>;
+  formData: OrderFormData;
+  errors: Partial<Record<keyof OrderFormData | "submit", string>>;
   loading: boolean;
   selectedVariation?: { attributes: { option: string }[] };
   wilayas: Wilaya[];
   cities: City[];
   selectedWilaya?: Wilaya;
   stockStatus?: { status: "instock" | "outofstock" };
+  maxQuantity?: number;
 
-  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSelectChange: (field: "wilaya" | "municipality", value: string) => void;
+  onSubmit: (data: OrderFormData) => void;
+  // onChange: (field: keyof OrderFormData, value: string | number) => void;
   onCancel?: () => void;
 };
 
-const OrderForm: React.FC<OrderFormProps> = ({
+export const OrderForm: React.FC<OrderFormProps> = ({
   formData,
   errors,
   loading,
   selectedVariation,
-  wilayas,
-  cities,
+  wilayas = [],
+  cities = [],
   selectedWilaya,
   stockStatus = { status: "instock" },
+  maxQuantity = 10,
   onSubmit,
-  onChange,
-  onSelectChange,
+  // onChange,
   onCancel,
 }) => {
   const { t, language } = useLanguage();
+  const [filteredCities, setFilteredCities] = useState<City[]>([]);
 
-  // Ensure cities are filtered based on selected wilaya
-  const [filteredCities, setFilteredCities] = React.useState<City[]>([]);
+  const form = useForm<OrderFormData>({
+    resolver: zodResolver(orderFormSchema),
+    defaultValues: formData,
+    mode: "onChange",
+  });
 
   useEffect(() => {
-    const city =  (selectedWilaya ? cities.filter((c) => c.wilaya_name_ascii == selectedWilaya.name) : [])
-   
-    setFilteredCities(city);
-  }, [cities, selectedWilaya]);
+    const wilaya_code = form?.getValues("wilaya");
+    console.log({wilaya_code});
+    console.log({ cities })
+    const filtered = cities?.filter((c) => Number(c.wilaya_code) == Number(wilaya_code));
+      
+      console.log({filtered});
+    setFilteredCities(filtered);
+  }, [form.watch("wilaya"), cities]);
 
+  const isOutOfStock = stockStatus.status === "outofstock";
 
   return (
     <Card className="mt-4 border-primary">
       <CardHeader>
-        <CardTitle>{t("checkout.quickCheckout")}</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          {t("checkout.quickCheckout")}
+          {isOutOfStock && (
+            <Alert className="ml-auto max-w-fit border-red-200 bg-red-50">
+              <AlertCircle className="h-4 w-4 text-red-600" />
+              <AlertDescription className="text-red-800 text-sm">
+                Out of Stock
+              </AlertDescription>
+            </Alert>
+          )}
+        </CardTitle>
+
         {selectedVariation && (
           <div className="text-sm text-muted-foreground">
             {t("product.selectedVariation")}:{" "}
-            {selectedVariation.attributes.map((attr) => attr.option).join(", ")}
+            <span className="font-medium">
+              {selectedVariation.attributes.map((attr) => attr.option).join(", ")}
+            </span>
           </div>
         )}
       </CardHeader>
+
       <CardContent>
-        <form onSubmit={onSubmit} className="space-y-4">
-          {/* Full Name */}
-          <div className="space-y-2">
-            <Label htmlFor="full_name">{t("checkout.fullName")}</Label>
-            <Input
-              id="full_name"
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6"
+          >
+            {/* Full Name */}
+            <FormField
+              control={form.control}
               name="full_name"
-              value={formData.full_name}
-              onChange={onChange}
-              required
-              className={errors.full_name ? "border-red-500" : ""}
-              placeholder={t("checkout.fullNamePlaceholder")}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t("checkout.fullName")} <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder={t("checkout.fullNamePlaceholder")} {...field} disabled={loading} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-            {errors.full_name && (
-              <p className="text-red-500 text-sm mt-1">{errors.full_name}</p>
-            )}
-          </div>
 
-          {/* Phone */}
-          <div className="space-y-2">
-            <Label htmlFor="phone">{t("checkout.phone")}</Label>
-            <Input
-              id="phone"
+            {/* Phone */}
+            <FormField
+              control={form.control}
               name="phone"
-              type="tel"
-              value={formData.phone}
-              onChange={onChange}
-              required
-              className={errors.phone ? "border-red-500" : ""}
-              placeholder={t("checkout.phonePlaceholder")}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t("checkout.phone")} <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input type="tel" placeholder={t("checkout.phonePlaceholder")} {...field} disabled={loading} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-            {errors.phone && (
-              <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
-            )}
-          </div>
 
-          {/* Wilaya + Municipality */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="wilaya">{t("checkout.wilaya")}</Label>
-              <Select
-                value={formData.wilaya}
-                onValueChange={(value) => onSelectChange("wilaya", value)}
-                required
-              >
-                <SelectTrigger
-                  id="wilaya"
-                  className={errors.wilaya ? "border-red-500" : ""}
-                >
-                  <SelectValue placeholder={t("checkout.selectWilaya")} />
-                </SelectTrigger>
-                <SelectContent>
-                  {wilayas.map((w) => (
-                    <SelectItem key={w.id} value={w.id.toString()}>
-                      {language === "ar" ? w.ar_name : w.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {errors.wilaya && (
-                <p className="text-red-500 text-sm mt-1">{errors.wilaya}</p>
+            {/* Quantity */}
+            <FormField
+              control={form.control}
+              name="quantity"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t("checkout.quantity")} <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <div className="flex items-center space-x-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      onClick={() => {
+                        const value = Math.max(field.value - 1, 1);
+                        field.onChange(value);
+                        
+                      }}
+                      disabled={field.value <= 1 || loading || isOutOfStock}
+                    >
+                      <Minus className="h-4 w-4" />
+                    </Button>
+                    <Input
+                      type="number"
+                      min={1}
+                      max={maxQuantity}
+                      value={field.value}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value) || 1;
+                        field.onChange(value);
+                        
+                      }}
+                      className="w-20 text-center"
+                      disabled={loading || isOutOfStock}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      onClick={() => {
+                        const value = Math.min(field.value + 1, maxQuantity);
+                        field.onChange(value);
+                        
+                      }}
+                      disabled={field.value >= maxQuantity || loading || isOutOfStock}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Maximum quantity: {maxQuantity}
+                  </p>
+                  <FormMessage />
+                </FormItem>
               )}
-            </div>
+            />
 
-            <div className="space-y-2">
-              <Label htmlFor="municipality">{t("checkout.municipality")}</Label>
-              <Select
-                value={formData.municipality}
-                onValueChange={(value) => onSelectChange("municipality", value)}
-                disabled={!selectedWilaya}
-                required
-              >
-                <SelectTrigger
-                  id="municipality"
-                  className={errors.municipality ? "border-red-500" : ""}
-                >
-                  <SelectValue placeholder={t("checkout.selectMunicipality")} />
-                </SelectTrigger>
-                <SelectContent>
-                  {filteredCities?.map((m, idx) => (
-                    <SelectItem key={idx} value={m.id.toString()}>
-                      {language === "ar" ? m.commune_name : m.commune_name_ascii}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {errors.municipality && (
-                <p className="text-red-500 text-sm mt-1">{errors.municipality}</p>
+            {/* Wilaya */}
+            <FormField
+              control={form.control}
+              name="wilaya"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t("checkout.wilaya")} <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <Select
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                     
+                    }}
+                    value={field.value}
+                    disabled={loading || isOutOfStock}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder={t("checkout.selectWilaya")} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {wilayas.map((w) => (
+                        <SelectItem key={w.id} value={w.code.toString()}>
+                          {language === "ar" ? w.ar_name : w.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
               )}
-            </div>
-          </div>
+            />
 
-          {/* Address */}
-          <div className="space-y-2">
-            <Label htmlFor="address">{t("checkout.address")}</Label>
-            <Input
-              id="address"
+            {/* Municipality */}
+            <FormField
+              control={form.control}
+              name="municipality"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t("checkout.municipality")} <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <Select
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                     
+                    }}
+                    value={field.value}
+                    disabled={!form.watch("wilaya") || loading || isOutOfStock}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder={t("checkout.selectMunicipality")} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {filteredCities.map((m) => (
+                        <SelectItem key={m.id} value={m.commune_name.toString()}>
+                          {language === "ar" ? m.commune_name : m.commune_name_ascii}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Address */}
+            <FormField
+              control={form.control}
               name="address"
-              value={formData.address}
-              onChange={onChange}
-              required
-              className={errors.address ? "border-red-500" : ""}
-              placeholder={t("checkout.addressPlaceholder")}
-            />
-            {errors.address && (
-              <p className="text-red-500 text-sm mt-1">{errors.address}</p>
-            )}
-          </div>
-
-          {/* Buttons */}
-          <div className="flex gap-2">
-            <Button
-              type="submit"
-              className="flex-1"
-              disabled={loading || stockStatus.status !== "instock"}
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  {t("checkout.processing")}
-                </>
-              ) : (
-                t("checkout.confirmOrder")
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t("checkout.address")} <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t("checkout.addressPlaceholder")}
+                      {...field}
+                      disabled={loading || isOutOfStock}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
-            </Button>
+            />
 
-            {onCancel && (
-              <Button type="button" variant="outline" onClick={onCancel}>
-                {t("common.cancel")}
-              </Button>
+            {/* Submit Error */}
+            {errors.submit && (
+              <Alert className="border-red-200 bg-red-50">
+                <AlertCircle className="h-4 w-4 text-red-600" />
+                <AlertDescription className="text-red-800">
+                  {errors.submit}
+                </AlertDescription>
+              </Alert>
             )}
-          </div>
 
-          {errors.submit && (
-            <p className="text-red-500 text-sm mt-4">{errors.submit}</p>
-          )}
-        </form>
+            {/* Buttons */}
+            <div className="flex gap-3 pt-2">
+              <Button
+                type="submit"
+                className="flex-1"
+                disabled={loading || isOutOfStock}
+                size="lg"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {t("checkout.processing")}
+                  </>
+                ) : (
+                  t("checkout.confirmOrder")
+                )}
+              </Button>
+
+              {onCancel && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={onCancel}
+                  disabled={loading}
+                  size="lg"
+                >
+                  {t("common.cancel")}
+                </Button>
+              )}
+            </div>
+          </form>
+        </Form>
       </CardContent>
     </Card>
   );
 };
-
-export default OrderForm;

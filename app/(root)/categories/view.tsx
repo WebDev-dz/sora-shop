@@ -43,7 +43,7 @@ export default function CategoriesView({ params, initialData, searchParams }: Pr
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-green-600 via-green-500 to-green-700 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
             {t("categories.title")}
           </h1>
           <p className="max-w-2xl text-gray-600 md:text-lg leading-relaxed">
@@ -76,7 +76,7 @@ export default function CategoriesView({ params, initialData, searchParams }: Pr
               <h2 className="text-2xl font-bold text-red-600">{t("error.title")}</h2>
               <p className="text-gray-600 max-w-md">{t("failed_to_fetch_categories")}</p>
             </div>
-            <Button onClick={() => location.reload()} className="bg-green-600 hover:bg-green-700">
+            <Button onClick={() => location.reload()} className="bg-blue-600 hover:bg-blue-700">
               {t("retry")}
             </Button>
           </div>

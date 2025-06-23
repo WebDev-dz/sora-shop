@@ -64,7 +64,7 @@ export function ProductCard({ product }: { product: Product }) {
             <span className="line-through text-gray-400 text-sm mr-2">
               {regularPrice} {t("currency")}
             </span>
-            <span className="text-green-600 font-bold text-lg">
+            <span className="text-blue-600 font-bold text-lg">
               {salePrice} {t("currency")}
             </span>
           </div>
@@ -132,7 +132,7 @@ export function ProductCard({ product }: { product: Product }) {
   const getStockBadge = () => {
     if (product.stock_quantity > 10) {
       return (
-        <Badge variant="secondary" className="bg-green-100 text-green-800 border-green-200">
+        <Badge variant="secondary" className="bg-blue-100 text-blue-800 border-blue-200">
           <TrendingUp className="h-3 w-3 mr-1" />
           In Stock
         </Badge>
@@ -162,8 +162,8 @@ export function ProductCard({ product }: { product: Product }) {
         max-w-[300px]
         group relative overflow-hidden transition-all duration-500 cursor-pointer
         ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'}
-        hover:shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2
-        ${isHovered ? 'scale-105 ring-2 ring-green-500/50' : 'scale-100'}
+        hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-2
+        ${isHovered ? 'scale-105 ring-2 ring-blue-500/50' : 'scale-100'}
         bg-gradient-to-br from-white via-white to-gray-50
       `}
       onMouseEnter={() => setIsHovered(true)}
@@ -262,7 +262,7 @@ export function ProductCard({ product }: { product: Product }) {
           <CardTitle className="line-clamp-2 text-lg leading-tight flex-1">
             <Link 
               href={`/products/${product.id}`}
-              className="hover:text-green-600 transition-colors duration-200 font-semibold"
+              className="hover:text-blue-600 transition-colors duration-200 font-semibold"
             >
               {product.name}
             </Link>
@@ -305,7 +305,7 @@ export function ProductCard({ product }: { product: Product }) {
               <Badge 
                 key={category.id} 
                 variant="outline" 
-                className="text-xs px-2 py-0.5 hover:bg-green-50 hover:border-green-200 transition-colors"
+                className="text-xs px-2 py-0.5 hover:bg-blue-50 hover:border-blue-200 transition-colors"
               >
                 {category.name}
               </Badge>
@@ -323,8 +323,8 @@ export function ProductCard({ product }: { product: Product }) {
               ${product.stock_quantity <= 0 
                 ? 'bg-gray-400 cursor-not-allowed opacity-60' 
                 : isAddingToCart 
-                  ? 'bg-green-500 hover:bg-green-600' 
-                  : 'bg-green-600 hover:bg-green-700'
+                  ? 'bg-blue-500 hover:bg-blue-600' 
+                  : 'bg-blue-600 hover:bg-blue-700'
               }
               disabled:opacity-50 disabled:cursor-not-allowed
               ${product.stock_quantity > 0 ? 'transform hover:scale-105 active:scale-95' : ''}

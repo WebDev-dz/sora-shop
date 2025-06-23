@@ -27,16 +27,14 @@ import { useGetProduct } from "@/services/products";
 import { useCreateOrder } from "@/services/orders";
 import { useGetVariations } from "@/services/variations";
 
-import OrderForm from "@/components/shared/order-form";
+import { OrderForm } from "@/components/shared/order-form";
 import ProductGallery from "@/components/shared/product-gellery";
+import { OrderFormData } from "@/validations/order";
+import { CreateOrder } from "@/types/orders";
 
-type Props = Pages.ProductPage;
+type Props = Omit<Pages.ProductPage, "searchParams">;
 
-export default function ProductPage({
-  params,
-  initialData,
-  searchParams,
-}: Props) {
+export default function ProductPage({ params, initialData }: Props) {
   const { t, language } = useLanguage();
   const { addToCart } = useCartStore();
   const router = useRouter();
@@ -47,11 +45,11 @@ export default function ProductPage({
     error: productError,
   } = useGetProduct();
   const {
-    data: variations,
+    data: variations = [],
     isPending: variationsLoading,
     error: variationsError,
   } = useGetVariations();
-  const { mutate: createOrder, isPending: orderLoading } = useCreateOrder();
+  const { mutateAsync: createOrder, isPending: orderLoading } = useCreateOrder();
 
   // State management
   const [selectedAttributes, setSelectedAttributes] = useState<{
@@ -71,6 +69,7 @@ export default function ProductPage({
     address: "",
     wilaya: "",
     municipality: "",
+    quantity: 1,
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -272,106 +271,41 @@ export default function ProductPage({
   }, [formData, t]);
 
   const handleQuickCheckout = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      if (!validateForm() || !currentProduct) return;
+    async (data: OrderFormData) => {
+      console.log({data});
+      // if (!validateForm() || !currentProduct) return;
 
-      setLoadingCheckout(true);
+      // setLoadingCheckout(true);
       try {
-        const orderData = {
-          number: "",
-          version: "1.0",
-          status: "pending",
-          parent_id: 0,
-          order_key: "",
-          created_via: "checkout",
-          currency: "DZD",
-          discount_total: "0",
-          discount_tax: "0",
-          shipping_total: "0",
-          shipping_tax: "0",
-          cart_tax: "0",
-          total: selectedVariation?.price || currentProduct.price,
-          total_tax: "0",
-          prices_include_tax: false,
-          customer_id: 0,
-          customer_ip_address: "",
-          customer_user_agent: "",
-          customer_note: "",
-          payment_method: "cod",
-          payment_method_title:
-            t("checkout.cashOnDelivery") || "Cash on Delivery",
-          transaction_id: "",
-          date_paid: "",
-          date_paid_gmt: "",
-          date_completed: null,
-          date_completed_gmt: null,
-          cart_hash: "",
-          meta_data: [],
-          date_created: new Date().toISOString(),
-          date_created_gmt: new Date().toISOString(),
-          date_modified: new Date().toISOString(),
-          date_modified_gmt: new Date().toISOString(),
-          billing: {
-            first_name: formData.full_name.split(" ")[0] || formData.full_name,
-            last_name: formData.full_name.split(" ").slice(1).join(" ") || "",
-            address_1: formData.address,
-            city: formData.municipality,
-            state: formData.wilaya,
-            country: "DZ",
-            phone: formData.phone,
-            company: "",
-            address_2: "",
-            postcode: "",
-            email: "",
-          },
+        if (!currentProduct) return;
+        const orderData: CreateOrder  = {
+          payment_method: "bacs",
+          payment_method_title: "Direct Bank Transfer",
+          set_paid: true,
+
           shipping: {
-            first_name: formData.full_name.split(" ")[0] || formData.full_name,
-            last_name: formData.full_name.split(" ").slice(1).join(" ") || "",
-            address_1: formData.address,
-            city: formData.municipality,
-            state: formData.wilaya,
-            country: "DZ",
-            company: "",
+            first_name: data.full_name.split(" ")[0] || data.full_name,
+            last_name: data.full_name.split(" ").slice(1).join(" ") || "",
+            address_1: data?.address || "",
             address_2: "",
-            postcode: "",
+            city: data.municipality,
+            state: wilayas.find((w) => w.code.toString() === data.wilaya)?.ar_name || "",
+            country: "Dz",
           },
           line_items: [
-            {
-              id: 0,
-              name: currentProduct.name,
-              product_id: currentProduct.id,
-              variation_id: selectedVariation?.id || 0,
-              quantity: 1,
-              tax_class: "",
-              subtotal: selectedVariation?.price || currentProduct.price,
-              subtotal_tax: "0",
-              total: selectedVariation?.price || currentProduct.price,
-              total_tax: "0",
-              taxes: [],
-              meta_data: selectedVariation?.attributes || [],
-              sku: currentProduct.sku || "",
-              price: parseFloat(
-                selectedVariation?.price || currentProduct.price
-              ),
-            },
+            { product_id: currentProduct?.id, quantity: data.quantity },
           ],
           shipping_lines: [],
-          tax_lines: [],
-          fee_lines: [],
-          coupon_lines: [],
-          refunds: [],
         };
 
-        await createOrder(orderData);
-        router.push("/checkout/success");
+        createOrder(orderData).then((data) => router.push(`/checkout/success?id=${data.id}`)).catch(console.error);
       } catch (error) {
         console.error("Error creating order:", error);
         setErrors({
           submit: t("error.orderCreation") || "Error creating order",
         });
       } finally {
-        setLoadingCheckout(false);
+        // setLoadingCheckout(false);
       }
     },
     [
@@ -390,7 +324,6 @@ export default function ProductPage({
     () => wilayas.find((w) => w.id.toString() === formData.wilaya),
     [formData.wilaya]
   );
-  
 
   const stockStatus = getStockStatus();
 
@@ -442,7 +375,6 @@ export default function ProductPage({
           images={currentProduct.images}
           productName={currentProduct.name}
         />
-       
 
         {/* Product Details */}
         <div className="flex flex-col gap-4">
@@ -470,8 +402,7 @@ export default function ProductPage({
 
           <Separator />
 
-          {
-            currentProduct.type === "variable" &&
+          {currentProduct.type === "variable" &&
             (variations?.length || 0) > 0 && (
               <Card className="border-primary">
                 <CardHeader>
@@ -480,8 +411,6 @@ export default function ProductPage({
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  
-
                   <Button
                     onClick={handleVariationSelected}
                     className="w-full"
@@ -495,8 +424,8 @@ export default function ProductPage({
 
           <div className="mt-2">
             {stockStatus.status === "instock" ? (
-              <div className="text-sm text-green-600 flex items-center gap-1">
-                <span className="h-2 w-2 rounded-full bg-green-500"></span>
+              <div className="text-sm text-blue-600 flex items-center gap-1">
+                <span className="h-2 w-2 rounded-full bg-blue-500"></span>
                 {t("product.inStock") || "In Stock"}
                 {stockStatus.quantity > 0 &&
                   ` (${stockStatus.quantity} ${
@@ -515,13 +444,11 @@ export default function ProductPage({
             <OrderForm
               formData={formData}
               errors={errors}
-              loading={false}
+              loading={orderLoading}
               wilayas={wilayas}
               cities={cities}
               selectedWilaya={selectedWilaya}
               onSubmit={handleQuickCheckout}
-              onChange={handleInputChange}
-              onSelectChange={handleSelectChange}
             />
           )}
 

@@ -78,7 +78,7 @@ export default function CategoryView({
           <p className="text-gray-600">{t("error.fetchCategory")}</p>
           <Button
             onClick={() => location.reload()}
-            className="bg-green-600 hover:bg-green-700"
+            className="bg-blue-600 hover:bg-blue-700"
           >
             {t("retry")}
           </Button>
@@ -101,19 +101,19 @@ export default function CategoryView({
         {/* Animated Header */}
         <div
           ref={headerRef}
-          className={`relative rounded-2xl overflow-hidden px-6 py-12 md:py-16 bg-gradient-to-br from-green-50 via-white to-green-100 transition-all duration-1000 ${
+          className={`relative rounded-2xl overflow-hidden px-6 py-12 md:py-16 bg-gradient-to-br from-blue-50 via-white to-blue-100 transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
           <div className="relative z-10 flex flex-col items-center justify-center space-y-6 text-center">
-            <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-green-600 via-green-500 to-green-700 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
               {category.name}
             </h1>
             <p className="max-w-2xl text-gray-700 md:text-lg leading-relaxed">
               {category.description || t("category.description")}
             </p>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-br from-green-100/30 via-white/20 to-green-50/30 blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-100/30 via-white/20 to-blue-50/30 blur-3xl" />
         </div>
 
         {/* Products or Empty */}

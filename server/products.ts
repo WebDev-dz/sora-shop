@@ -15,7 +15,7 @@ const isTemplate = mode ? mode === "template" : true
 export const ProductsService = {
     getProducts: async (params: any) : Promise<Product[]> => {
         if (!isTemplate) {
-            return (await api.get('products', params)).data;
+            return (await api.get('products')).data;
         } else {
             return mockProducts.slice(0, params?.limit || 6);
         }

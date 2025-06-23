@@ -90,7 +90,7 @@ export const translations: Translations = {
   "cart.title": {
     ar: "عربة التسوق",
     fr: "Panier",
-    en: "Cart",
+    en: "Shopping Cart",
   },
   "account.title": {
     ar: "حسابي",
@@ -183,13 +183,88 @@ export const translations: Translations = {
   },
   "product.inStock": {
     ar: "متوفر",
-    fr: "En stock",
+    fr: "En Stock",
     en: "In Stock",
   },
   "product.outOfStock": {
-    ar: "غير متوفر",
-    fr: "En rupture de stock",
+    ar: "نفدت الكمية",
+    fr: "Rupture de Stock",
     en: "Out of Stock",
+  },
+  "product.selectedVariation": {
+    ar: "الخيار المحدد",
+    fr: "Variation Sélectionnée",
+    en: "Selected Variation",
+  },
+  "product.maxQuantity": {
+    ar: "الحد الأقصى للكمية",
+    fr: "Quantité Maximum",
+    en: "Maximum Quantity",
+  },
+  "product.buyNow": {
+    ar: "اشتر الآن",
+    fr: "Acheter maintenant",
+    en: "Buy Now",
+  },
+  "product.specifications": {
+    ar: "المواصفات",
+    fr: "Spécifications",
+    en: "Specifications",
+  },
+  "product.reviews": {
+    ar: "التقييمات",
+    fr: "Avis",
+    en: "Reviews",
+  },
+  "product.relatedProducts": {
+    ar: "منتجات ذات صلة",
+    fr: "Produits connexes",
+    en: "Related Products",
+  },
+  "product.quantity": {
+    ar: "الكمية",
+    fr: "Quantité",
+    en: "Quantity",
+  },
+  "product.availability": {
+    ar: "التوفر",
+    fr: "Disponibilité",
+    en: "Availability",
+  },
+  "product.addToWishlist": {
+    ar: "أضف للمفضلة",
+    fr: "Ajouter aux favoris",
+    en: "Add to Wishlist",
+  },
+  "product.share": {
+    ar: "مشاركة",
+    fr: "Partager",
+    en: "Share",
+  },
+  "product.categories": {
+    ar: "الفئات",
+    fr: "Catégories",
+    en: "Categories",
+  },
+  "product.description": {
+    ar: "الوصف",
+    fr: "Description",
+    en: "Description",
+  },
+  "product.additionalInfo": {
+    ar: "معلومات إضافية",
+    fr: "Informations supplémentaires",
+    en: "Additional Information",
+  },
+  "product.noAdditionalInfo": {
+    ar: "لا توجد معلومات إضافية لهذا المنتج",
+    fr: "Aucune information supplémentaire pour ce produit",
+    en: "No additional information for this product",
+  },
+  "product.shareCopied": {
+    ar: "تم نسخ الرابط!",
+    fr: "Lien copié !",
+    en: "Link copied!",
   },
   loading: {
     ar: "جاري التحميل...",
@@ -435,11 +510,7 @@ export const translations: Translations = {
     fr: "Prénom",
     en: "First Name",
   },
-  "checkout.lastName": {
-    ar: "اسم العائلة",
-    fr: "Nom de famille",
-    en: "Last Name",
-  },
+
   "checkout.email": {
     ar: "البريد الإلكتروني",
     fr: "Email",
@@ -526,36 +597,7 @@ export const translations: Translations = {
     en: "Order Summary",
   },
 
-  "product.addToWishlist": {
-    ar: "أضف للمفضلة",
-    fr: "Ajouter aux favoris",
-    en: "Add to Wishlist",
-  },
-  "product.share": {
-    ar: "مشاركة",
-    fr: "Partager",
-    en: "Share",
-  },
-  "product.categories": {
-    ar: "الفئات",
-    fr: "Catégories",
-    en: "Categories",
-  },
-  "product.description": {
-    ar: "الوصف",
-    fr: "Description",
-    en: "Description",
-  },
-  "product.additionalInfo": {
-    ar: "معلومات إضافية",
-    fr: "Informations supplémentaires",
-    en: "Additional Information",
-  },
-  "product.noAdditionalInfo": {
-    ar: "لا توجد معلومات إضافية لهذا المنتج",
-    fr: "Aucune information supplémentaire pour ce produit",
-    en: "No additional information for this product",
-  },
+
   productNotFound: {
     ar: "المنتج غير موجود",
     fr: "Produit introuvable",
@@ -566,11 +608,7 @@ export const translations: Translations = {
     fr: "Ce produit n'est pas disponible ou a été supprimé.",
     en: "This product is not available or has been deleted.",
   },
-  "product.shareCopied": {
-    ar: "تم نسخ الرابط!",
-    fr: "Lien copié !",
-    en: "Link copied!",
-  },
+
   "checkout.fullName": {
     ar: "الاسم الكامل",
     fr: "Nom complet",
@@ -659,44 +697,13 @@ export const translations: Translations = {
     en: "State/province is required",
   },
 
-  "product.buyNow": {
-    ar: "اشتر الآن",
-    fr: "Acheter maintenant",
-    en: "Buy Now",
-  },
-
   "checkout.quickCheckout": {
     ar: "إتمام الشراء السريع",
     fr: "Paiement rapide",
     en: "Quick Checkout",
   },
 
-  // Product Details
-  "product.specifications": {
-    ar: "المواصفات",
-    fr: "Spécifications",
-    en: "Specifications",
-  },
-  "product.reviews": {
-    ar: "التقييمات",
-    fr: "Avis",
-    en: "Reviews",
-  },
-  "product.relatedProducts": {
-    ar: "منتجات ذات صلة",
-    fr: "Produits connexes",
-    en: "Related Products",
-  },
-  "product.quantity": {
-    ar: "الكمية",
-    fr: "Quantité",
-    en: "Quantity",
-  },
-  "product.availability": {
-    ar: "التوفر",
-    fr: "Disponibilité",
-    en: "Availability",
-  },
+ 
   "products.noProductsAvailable": {
     ar: "لا توجد منتجات متاحة حالياً",
     fr: "Aucun produit disponible",
@@ -892,4 +899,330 @@ export const translations: Translations = {
     fr: "Retour",
     en: "Back",
   },
-};
+ 
+  
+    // Checkout Section
+   
+    
+    "checkout.quantity": {
+      ar: "الكمية",
+      fr: "Quantité",
+      en: "Quantity",
+    },
+    
+  
+  
+    // Common Actions
+    "common.cancel": {
+      ar: "إلغاء",
+      fr: "Annuler",
+      en: "Cancel",
+    },
+    
+    "common.save": {
+      ar: "حفظ",
+      fr: "Enregistrer",
+      en: "Save",
+    },
+    
+    "common.edit": {
+      ar: "تعديل",
+      fr: "Modifier",
+      en: "Edit",
+    },
+    
+    "common.delete": {
+      ar: "حذف",
+      fr: "Supprimer",
+      en: "Delete",
+    },
+    
+    "common.confirm": {
+      ar: "تأكيد",
+      fr: "Confirmer",
+      en: "Confirm",
+    },
+    
+    "common.back": {
+      ar: "رجوع",
+      fr: "Retour",
+      en: "Back",
+    },
+    
+    "common.next": {
+      ar: "التالي",
+      fr: "Suivant",
+      en: "Next",
+    },
+    
+    "common.previous": {
+      ar: "السابق",
+      fr: "Précédent",
+      en: "Previous",
+    },
+    
+    "common.loading": {
+      ar: "جاري التحميل...",
+      fr: "Chargement...",
+      en: "Loading...",
+    },
+    
+    "common.error": {
+      ar: "خطأ",
+      fr: "Erreur",
+      en: "Error",
+    },
+    
+    "common.success": {
+      ar: "نجح",
+      fr: "Succès",
+      en: "Success",
+    },
+    
+    "common.warning": {
+      ar: "تحذير",
+      fr: "Avertissement",
+      en: "Warning",
+    },
+    
+    "common.info": {
+      ar: "معلومات",
+      fr: "Information",
+      en: "Information",
+    },
+  
+    // Validation Messages
+    "validation.required": {
+      ar: "هذا الحقل مطلوب",
+      fr: "Ce champ est requis",
+      en: "This field is required",
+    },
+    
+    "validation.phoneInvalid": {
+      ar: "يرجى إدخال رقم هاتف صحيح",
+      fr: "Veuillez entrer un numéro de téléphone valide",
+      en: "Please enter a valid phone number",
+    },
+    
+    "validation.quantityMin": {
+      ar: "يجب أن تكون الكمية 1 على الأقل",
+      fr: "La quantité doit être d'au moins 1",
+      en: "Quantity must be at least 1",
+    },
+    
+    "validation.quantityMax": {
+      ar: "الحد الأقصى للكمية هو {max}",
+      fr: "La quantité maximale est {max}",
+      en: "Maximum quantity is {max}",
+    },
+    
+    "validation.nameMinLength": {
+      ar: "يجب أن يكون الاسم أطول من حرفين",
+      fr: "Le nom doit contenir au moins 2 caractères",
+      en: "Name must be at least 2 characters",
+    },
+    
+    "validation.nameMaxLength": {
+      ar: "يجب أن يكون الاسم أقل من 100 حرف",
+      fr: "Le nom doit contenir moins de 100 caractères",
+      en: "Name must be less than 100 characters",
+    },
+    
+    "validation.phoneMinLength": {
+      ar: "يجب أن يكون رقم الهاتف 10 أرقام على الأقل",
+      fr: "Le numéro de téléphone doit contenir au moins 10 chiffres",
+      en: "Phone number must be at least 10 digits",
+    },
+    
+    "validation.addressMinLength": {
+      ar: "يرجى تقديم عنوان كامل",
+      fr: "Veuillez fournir une adresse complète",
+      en: "Please provide a complete address",
+    },
+    
+    "validation.addressMaxLength": {
+      ar: "يجب أن يكون العنوان أقل من 200 حرف",
+      fr: "L'adresse doit contenir moins de 200 caractères",
+      en: "Address must be less than 200 characters",
+    },
+    
+    "validation.selectWilaya": {
+      ar: "يرجى اختيار الولاية",
+      fr: "Veuillez sélectionner une wilaya",
+      en: "Please select a wilaya",
+    },
+    
+    "validation.selectMunicipality": {
+      ar: "يرجى اختيار البلدية",
+      fr: "Veuillez sélectionner une commune",
+      en: "Please select a municipality",
+    },
+    
+    "validation.wholeNumber": {
+      ar: "يجب أن تكون الكمية رقماً صحيحاً",
+      fr: "La quantité doit être un nombre entier",
+      en: "Quantity must be a whole number",
+    },
+  
+    // Order Status
+    "order.pending": {
+      ar: "قيد الانتظار",
+      fr: "En Attente",
+      en: "Pending",
+    },
+    
+    "order.confirmed": {
+      ar: "مؤكد",
+      fr: "Confirmé",
+      en: "Confirmed",
+    },
+    
+    "order.processing": {
+      ar: "قيد المعالجة",
+      fr: "En Traitement",
+      en: "Processing",
+    },
+    
+    "order.shipped": {
+      ar: "تم الشحن",
+      fr: "Expédié",
+      en: "Shipped",
+    },
+    
+    "order.delivered": {
+      ar: "تم التسليم",
+      fr: "Livré",
+      en: "Delivered",
+    },
+    
+    "order.cancelled": {
+      ar: "ملغي",
+      fr: "Annulé",
+      en: "Cancelled",
+    },
+  
+    // Success Messages
+    "success.orderPlaced": {
+      ar: "تم تقديم طلبك بنجاح!",
+      fr: "Votre commande a été passée avec succès !",
+      en: "Your order has been placed successfully!",
+    },
+    
+    "success.orderUpdated": {
+      ar: "تم تحديث طلبك بنجاح",
+      fr: "Votre commande a été mise à jour avec succès",
+      en: "Your order has been updated successfully",
+    },
+    
+    "success.informationSaved": {
+      ar: "تم حفظ المعلومات بنجاح",
+      fr: "Informations sauvegardées avec succès",
+      en: "Information saved successfully",
+    },
+  
+    // Error Messages
+    "error.orderFailed": {
+      ar: "فشل في تقديم الطلب. يرجى المحاولة مرة أخرى",
+      fr: "Échec de la commande. Veuillez réessayer",
+      en: "Order failed. Please try again",
+    },
+    
+    "error.networkError": {
+      ar: "خطأ في الشبكة. تحقق من اتصالك بالإنترنت",
+      fr: "Erreur réseau. Vérifiez votre connexion internet",
+      en: "Network error. Check your internet connection",
+    },
+    
+    "error.serverError": {
+      ar: "خطأ في الخادم. يرجى المحاولة لاحقاً",
+      fr: "Erreur serveur. Veuillez réessayer plus tard",
+      en: "Server error. Please try again later",
+    },
+    
+    "error.invalidData": {
+      ar: "البيانات المدخلة غير صحيحة",
+      fr: "Données saisies invalides",
+      en: "Invalid data entered",
+    },
+  
+  
+    
+    "cart.tax": {
+      ar: "الضريبة",
+      fr: "Taxe",
+      en: "Tax",
+    },
+  
+    // Currency
+    "currency.dzd": {
+      ar: "د.ج",
+      fr: "DA",
+      en: "DZD",
+    },
+    
+    "currency.free": {
+      ar: "مجاني",
+      fr: "Gratuit",
+      en: "Free",
+    },
+  
+    // Time & Date
+    "time.today": {
+      ar: "اليوم",
+      fr: "Aujourd'hui",
+      en: "Today",
+    },
+    
+    "time.yesterday": {
+      ar: "أمس",
+      fr: "Hier",
+      en: "Yesterday",
+    },
+    
+    "time.tomorrow": {
+      ar: "غداً",
+      fr: "Demain",
+      en: "Tomorrow",
+    },
+  
+    // Contact Information
+    "contact.phone": {
+      ar: "الهاتف",
+      fr: "Téléphone",
+      en: "Phone",
+    },
+    
+  
+    
+    "contact.website": {
+      ar: "الموقع الإلكتروني",
+      fr: "Site Web",
+      en: "Website",
+    },
+  
+    // Delivery Information
+    "delivery.homeDelivery": {
+      ar: "التوصيل للمنزل",
+      fr: "Livraison à domicile",
+      en: "Home Delivery",
+    },
+    
+    "delivery.pickupPoint": {
+      ar: "نقطة الاستلام",
+      fr: "Point de retrait",
+      en: "Pickup Point",
+    },
+    
+    "delivery.estimatedTime": {
+      ar: "الوقت المقدر للتسليم",
+      fr: "Temps de livraison estimé",
+      en: "Estimated Delivery Time",
+    },
+    
+    "delivery.instructions": {
+      ar: "تعليمات التسليم",
+      fr: "Instructions de livraison",
+      en: "Delivery Instructions",
+    },
+  }
+

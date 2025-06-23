@@ -86,7 +86,7 @@ function OrderSummaryCard({ order }: { order: Order }) {
                 </span>
                 <Badge
                   variant="secondary"
-                  className="bg-green-100 text-green-800"
+                  className="bg-blue-100 text-blue-800"
                 >
                   {t(`checkout.status.${order.status}`)}
                 </Badge>
@@ -182,10 +182,8 @@ function ShareOrderButton({ orderId }: { orderId: number }) {
 function CheckoutSuccessContent() {
   const { t } = useLanguage();
   const { clearCart } = useCartStore();
-  const { data: order, mutate: getOrder } = useGetOrder();
+  const { data: orderDetails, mutate: getOrder, isPending: isLoading } = useGetOrder();
   const searchParams = useSearchParams();
-  const [orderDetails, setOrder] = useState<Order | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   // Get order ID from URL params
   const orderId = searchParams?.get("order_id") || "ORD-2024-001";
@@ -237,14 +235,14 @@ function CheckoutSuccessContent() {
       {/* Success Header */}
       <div className="flex flex-col items-center justify-center text-center space-y-4">
         <div className="relative">
-          <CheckCircle className="h-20 w-20 text-green-500" />
+          <CheckCircle className="h-20 w-20 text-blue-500" />
           <div className="absolute inset-0 animate-ping">
-            <CheckCircle className="h-20 w-20 text-green-500 opacity-20" />
+            <CheckCircle className="h-20 w-20 text-blue-500 opacity-20" />
           </div>
         </div>
 
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold text-green-700">
+          <h1 className="text-3xl font-bold text-blue-700">
             {t("checkout.success.title")}
           </h1>
           <p className="text-lg text-muted-foreground max-w-md">

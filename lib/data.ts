@@ -580,7 +580,7 @@ export const mockProducts: Product[] = [{
       {
         "id": 6,
         "name": "Color",
-        "options": ["White", "Light Blue", "Navy", "Gray", "Green"]
+        "options": ["White", "Light Blue", "Navy", "Gray", "blue"]
       }
     ],
     "_links": {

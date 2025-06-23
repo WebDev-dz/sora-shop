@@ -174,7 +174,7 @@ function ProductsContent({ params, searchParams, initialData }: Props) {
           </div>
           <Button
             onClick={() => refetch({ page: currentPage })}
-            className="bg-green-600 hover:bg-green-700 gap-2"
+            className="bg-blue-600 hover:bg-blue-700 gap-2"
           >
             <RefreshCw className="h-4 w-4" />
             {t("retry")}
@@ -189,12 +189,12 @@ function ProductsContent({ params, searchParams, initialData }: Props) {
       {/* Animated Header */}
       <div
          ref={headerRef}
-         className={`relative rounded-2xl overflow-hidden px-6 py-12 md:py-16 bg-gradient-to-br from-green-50 via-white to-green-100 transition-all duration-1000 ${
+         className={`relative rounded-2xl overflow-hidden px-6 py-12 md:py-16 bg-gradient-to-br from-blue-50 via-white to-blue-100 transition-all duration-1000 ${
            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
          }`}
       >
         <div className="relative z-10 flex flex-col items-center justify-center space-y-6 text-center">
-            <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-green-600 via-green-500 to-green-700 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
               {t("nav.products")}
             </h1>
             <p className="max-w-2xl text-gray-700 md:text-lg leading-relaxed">
@@ -224,7 +224,7 @@ function ProductsContent({ params, searchParams, initialData }: Props) {
             placeholder={t("products.searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 h-12 text-lg border-gray-200 focus:border-green-500 focus:ring-green-500"
+            className="pl-10 h-12 text-lg border-gray-200 focus:border-blue-500 focus:ring-blue-500"
           />
         </div>
 
@@ -242,8 +242,8 @@ function ProductsContent({ params, searchParams, initialData }: Props) {
                   cursor-pointer transition-all duration-200 hover:scale-105
                   ${
                     selectedCategories.includes(category)
-                      ? "bg-green-600 hover:bg-green-700"
-                      : "hover:bg-green-50 hover:border-green-200"
+                      ? "bg-blue-600 hover:bg-blue-700"
+                      : "hover:bg-blue-50 hover:border-blue-200"
                   }
                 `}
                 onClick={() => {
@@ -266,7 +266,7 @@ function ProductsContent({ params, searchParams, initialData }: Props) {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
-                  className="gap-2 hover:bg-green-50 hover:border-green-200"
+                  className="gap-2 hover:bg-blue-50 hover:border-blue-200"
                 >
                   <SortAsc className="h-4 w-4" />
                   {getSortLabel(sortBy)}
@@ -289,7 +289,7 @@ function ProductsContent({ params, searchParams, initialData }: Props) {
                     key={option}
                     onClick={() => setSortBy(option)}
                     className={
-                      sortBy === option ? "bg-green-50 text-green-700" : ""
+                      sortBy === option ? "bg-blue-50 text-blue-700" : ""
                     }
                   >
                     {getSortLabel(option)}
@@ -355,7 +355,7 @@ function ProductsContent({ params, searchParams, initialData }: Props) {
             {totalProducts} products
           </span>
           {(searchQuery || selectedCategories.length > 0) && (
-            <span className="text-green-600 font-medium">
+            <span className="text-blue-600 font-medium">
               {t("filters.filteredResults")}
             </span>
           )}
@@ -423,7 +423,7 @@ function ProductsContent({ params, searchParams, initialData }: Props) {
               disabled={currentPage === 1}
               variant="outline"
               size="sm"
-              className="gap-2 hover:bg-green-50 hover:border-green-200 disabled:opacity-50"
+              className="gap-2 hover:bg-blue-50 hover:border-blue-200 disabled:opacity-50"
             >
               <ArrowLeft className="h-4 w-4" />
               {t("pagination.previous")}
@@ -444,8 +444,8 @@ function ProductsContent({ params, searchParams, initialData }: Props) {
                       w-10 h-10 p-0
                       ${
                         currentPage === pageNum
-                          ? "bg-green-600 hover:bg-green-700"
-                          : "hover:bg-green-50 hover:border-green-200"
+                          ? "bg-blue-600 hover:bg-blue-700"
+                          : "hover:bg-blue-50 hover:border-blue-200"
                       }
                     `}
                   >
@@ -460,7 +460,7 @@ function ProductsContent({ params, searchParams, initialData }: Props) {
               disabled={currentPage >= totalPages}
               variant="outline"
               size="sm"
-              className="gap-2 hover:bg-green-50 hover:border-green-200 disabled:opacity-50"
+              className="gap-2 hover:bg-blue-50 hover:border-blue-200 disabled:opacity-50"
             >
               Next
               <ArrowRight className="h-4 w-4" />
@@ -500,7 +500,7 @@ export default function ProductsView(props: Props) {
             </p>
             <Button
               onClick={() => window.location.reload()}
-              className="bg-green-600 hover:bg-green-700"
+              className="bg-blue-600 hover:bg-blue-700"
             >
               Refresh Page
             </Button>
