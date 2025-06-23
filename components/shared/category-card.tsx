@@ -38,20 +38,11 @@ export function CategoryCard({ category }: { category: CategoryItem }) {
     setImageError(true);
     setImageLoaded(true);
   };
-
+  if (category.name == "Uncategorized") return null; 
   return (
     <Card className="group overflow-hidden  transition-all duration-300 border-0 shadow-sm hover:shadow-xl">
       <Link href={`/categories/${category.id}`} className="block">
-        <div className="relative aspect-square overflow-hidden bg-gray-100 dark:bg-gray-800">
-          {/* Image Loading Skeleton */}
-          {!imageLoaded && (
-            <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 animate-pulse flex items-center justify-center">
-              <div className="w-8 h-8 border-2 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          )}
-          
-          {/* Main Image */}
-          <img
+       <img
             src={imageError ? "/placeholder.svg" : category.image?.src || "/placeholder.svg"}
             alt={category.name}
             className={`h-full w-full object-cover transition-all duration-500 group-hover:scale-110 ${
@@ -63,13 +54,6 @@ export function CategoryCard({ category }: { category: CategoryItem }) {
             onError={handleImageError}
             loading="lazy"
           />
-          
-          {/* Overlay on Hover */}
-          <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          
-          {/* Category Badge */}
-          
-        </div>
 
         <CardContent className="p-4 space-y-2">
           <h3 className="text-lg font-semibold group-hover:text-primary transition-colors duration-200 line-clamp-1">
@@ -118,7 +102,7 @@ export function CategoryGrid({
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {categories?.map((category) => (
+      {categories?.filter(c => c.name !== "uncategorized")?.map((category) => (
         <CategoryCard key={category.id} category={category} />
       ))}
     </div>
