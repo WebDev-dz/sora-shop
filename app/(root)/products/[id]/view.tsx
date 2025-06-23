@@ -298,7 +298,7 @@ export default function ProductPage({ params, initialData }: Props) {
           shipping_lines: [],
         };
 
-        createOrder(orderData).then((data) => router.push(`/checkout/success?id=${data.id}`)).catch(console.error);
+        createOrder(orderData).then((data) => {console.log(data);router.push(`/checkout/success?id=${data.id}`)}).catch(console.error);
       } catch (error) {
         console.error("Error creating order:", error);
         setErrors({
@@ -523,7 +523,7 @@ export default function ProductPage({ params, initialData }: Props) {
 
       <div className="mt-12">
         <Tabs defaultValue="description">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-1">
             <TabsTrigger value="description">
               {t("product.description") || "Description"}
             </TabsTrigger>

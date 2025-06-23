@@ -5,10 +5,10 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Thumbs, FreeMode } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/thumbs";
-import "swiper/css/free-mode";
+// import "swiper/css/navigation";
+// import "swiper/css/pagination";
+// import "swiper/css/thumbs";
+// import "swiper/css/free-mode";
 
 type ProductGalleryProps = {
   images: { src: string }[];
@@ -30,26 +30,27 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images, productName }) 
           pagination={{ clickable: true }}
           spaceBetween={10}
           slidesPerView={1}
+          style={{ maxWidth: "600px", height: "600px" }}
           className="w-full aspect-square  overflow-hidden"
         >
           {hasImages ? (
             images.map((image, idx) => (
-              <SwiperSlide  key={idx}>
+              <SwiperSlide key={idx}>
                 <div className="relative w-full h-full">
                   <Image
                     src={image.src}
                     alt={`${productName} ${idx + 1}`}
                     width={600}
                     height={600}
-                    // className="w-full h-full object-cover"
+                    className="w-full h-full object-cover"
                     priority={idx === 0}
                   />
                 </div>
               </SwiperSlide>
             ))
           ) : (
-            <SwiperSlide >
-              <div className="relative ">
+            <SwiperSlide>
+              <div className="relative w-full h-full">
                 <Image
                   src="/placeholder.svg"
                   alt={productName}
@@ -64,7 +65,7 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images, productName }) 
         </Swiper>
       </div>
 
-      {hasImages && images.length > 1 && (
+      {/* {hasImages && images.length > 1 && (
         <Swiper
           modules={[FreeMode, Thumbs]}
           onSwiper={setThumbsSwiper}
@@ -72,11 +73,11 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images, productName }) 
           slidesPerView={4}
           freeMode
           watchSlidesProgress
-          // className="w-full"
+          className="w-full"
         >
           {images.map((image, idx) => (
-            <SwiperSlide style={{width: "inherit"}} key={idx}>
-              <div className="relative cursor-pointer">
+            <SwiperSlide  style={{maxWidth: 96}} className="w-16 h-16" key={idx}>
+              <div className="relative w-16 h-16 cursor-pointer">
                 <Image
                   src={image.src}
                   alt={`${productName} thumbnail ${idx + 1}`}
@@ -88,7 +89,7 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images, productName }) 
             </SwiperSlide>
           ))}
         </Swiper>
-      )}
+      )} */}
     </div>
   );
 };
