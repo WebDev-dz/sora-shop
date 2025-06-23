@@ -6,7 +6,7 @@ import { type Language, translations } from "@/lib/i18n/translations"
 type LanguageContextType = {
   language: Language
   setLanguage: (lang: Language) => void
-  t: (key: string) => string
+  t: (key: string, params?: Record<string, string | number>) => string
   dir: "rtl" | "ltr"
 }
 
@@ -54,12 +54,19 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   }, [language])
 
-  // الحصول على ترجمة لمفتاح معين
-  const t = (key: string): string => {
-    if (translations[key] && translations[key][language]) {
-      return translations[key][language]
+  // الحصول على ترجمة لمفتاح معين مع دعم المعلمات
+  const t = (key: string, params?: Record<string, string | number>): string => {
+    let translation = translations[key]?.[language] || key
+
+    // إذا كانت هناك معلمات، استبدل العناصر النائبة في النص
+    if (params && typeof params === "object") {
+      Object.entries(params).forEach(([paramKey, value]) => {
+        const placeholder = `{{${paramKey}}}`
+        translation = translation.replace(new RegExp(placeholder, "g"), String(value))
+      })
     }
-    return key
+
+    return translation
   }
 
   // تحديد اتجاه النص بناءً على اللغة

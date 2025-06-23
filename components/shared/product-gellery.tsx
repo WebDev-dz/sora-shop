@@ -34,22 +34,22 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images, productName }) 
         >
           {hasImages ? (
             images.map((image, idx) => (
-              <SwiperSlide key={idx}>
+              <SwiperSlide  key={idx}>
                 <div className="relative w-full h-full">
                   <Image
                     src={image.src}
                     alt={`${productName} ${idx + 1}`}
                     width={600}
                     height={600}
-                    className="w-full h-full object-cover"
+                    // className="w-full h-full object-cover"
                     priority={idx === 0}
                   />
                 </div>
               </SwiperSlide>
             ))
           ) : (
-            <SwiperSlide>
-              <div className="relative w-full h-full">
+            <SwiperSlide >
+              <div className="relative ">
                 <Image
                   src="/placeholder.svg"
                   alt={productName}
@@ -72,11 +72,11 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images, productName }) 
           slidesPerView={4}
           freeMode
           watchSlidesProgress
-          className="w-full"
+          // className="w-full"
         >
           {images.map((image, idx) => (
-            <SwiperSlide key={idx}>
-              <div className="relative w-16 h-16 cursor-pointer">
+            <SwiperSlide style={{width: "inherit"}} key={idx}>
+              <div className="relative cursor-pointer">
                 <Image
                   src={image.src}
                   alt={`${productName} thumbnail ${idx + 1}`}

@@ -45,9 +45,7 @@ export function CategoryCard({ category }: { category: CategoryItem }) {
        <img
             src={imageError ? "/placeholder.svg" : category.image?.src || "/placeholder.svg"}
             alt={category.name}
-            className={`h-full w-full object-cover transition-all duration-500 group-hover:scale-110 ${
-              imageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`h-full w-full object-cover transition-all duration-500 group-hover:scale-110 `}
             width={200}
             height={200}
             onLoad={handleImageLoad}
@@ -102,7 +100,7 @@ export function CategoryGrid({
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {categories?.filter(c => c.name !== "uncategorized")?.map((category) => (
+      {categories?.filter(c => c.name !== "Uncategorized")?.map((category) => (
         <CategoryCard key={category.id} category={category} />
       ))}
     </div>

@@ -194,7 +194,7 @@ function ProductsContent({ params, searchParams, initialData }: Props) {
          }`}
       >
         <div className="relative z-10 flex flex-col items-center justify-center space-y-6 text-center">
-            <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
+            <h1 className="text-4xl !leading-[4.5rem] font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
               {t("nav.products")}
             </h1>
             <p className="max-w-2xl text-gray-700 md:text-lg leading-relaxed">

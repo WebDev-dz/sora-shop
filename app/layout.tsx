@@ -15,12 +15,11 @@ const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localho
 // Define metadata for better SEO
 export const metadata: Metadata = {
   title: {
-    default: "متجر الكتروني جزائري | Ménage Bazita",
-    template: "%s | Ménage Bazita",
-  },
+    default: "Sora Shop",
+    template: "%s | متجر الكتروني جزائري",},
   description:
     "Ménage Bazita - تسوق أفضل المنتجات بأسعار تنافسية مع خدمة توصيل سريعة",
-  generator: "Next.js",
+  // generator: "Next.js",
   applicationName: "متجر الكتروني جزائري",
   keywords: [
     "تسوق عبر الإنترنت",

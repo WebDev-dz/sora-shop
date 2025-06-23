@@ -395,12 +395,15 @@ export default function ProductPage({ params, initialData }: Props) {
           <Separator />
 
           {currentProduct.short_description && (
+            <>
+            
             <div className="text-muted-foreground">
               {parse(currentProduct.short_description)}
             </div>
+            <Separator />
+            </>
           )}
 
-          <Separator />
 
           {currentProduct.type === "variable" &&
             (variations?.length || 0) > 0 && (
@@ -440,7 +443,7 @@ export default function ProductPage({ params, initialData }: Props) {
             )}
           </div>
 
-          {showCheckoutForm && (
+           
             <OrderForm
               formData={formData}
               errors={errors}
@@ -450,11 +453,11 @@ export default function ProductPage({ params, initialData }: Props) {
               selectedWilaya={selectedWilaya}
               onSubmit={handleQuickCheckout}
             />
-          )}
+          
 
-          {!showCheckoutForm && !showVariationSelector && (
+          {!showVariationSelector && (
             <div className="mt-6 flex flex-wrap gap-2 sm:flex-row">
-              <Button
+              {/* <Button
                 size="lg"
                 className="gap-2 flex-1"
                 onClick={handleBuyNowClick}
@@ -462,7 +465,7 @@ export default function ProductPage({ params, initialData }: Props) {
               >
                 <ShoppingCart className="h-5 w-5" />
                 {t("product.buyNow") || "Buy Now"}
-              </Button>
+              </Button> */}
 
               <Button
                 size="lg"
@@ -524,9 +527,9 @@ export default function ProductPage({ params, initialData }: Props) {
             <TabsTrigger value="description">
               {t("product.description") || "Description"}
             </TabsTrigger>
-            <TabsTrigger value="additional_information">
+            {/* <TabsTrigger value="additional_information">
               {t("product.additionalInfo") || "Additional Information"}
-            </TabsTrigger>
+            </TabsTrigger> */}
           </TabsList>
 
           <TabsContent value="description" className="mt-6">
@@ -540,7 +543,7 @@ export default function ProductPage({ params, initialData }: Props) {
               )}
             </div>
           </TabsContent>
-          <TabsContent value="additional_information" className="mt-6">
+          {/* <TabsContent value="additional_information" className="mt-6">
             <div className="prose max-w-none dark:prose-invert">
               {currentProduct.attributes &&
               currentProduct.attributes.length > 0 ? (
@@ -566,7 +569,7 @@ export default function ProductPage({ params, initialData }: Props) {
                 </p>
               )}
             </div>
-          </TabsContent>
+          </TabsContent> */}
         </Tabs>
       </div>
     </div>

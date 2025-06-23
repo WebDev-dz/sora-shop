@@ -1224,5 +1224,16 @@ export const translations: Translations = {
       fr: "Instructions de livraison",
       en: "Delivery Instructions",
     },
+    
+    "checkout.orderNotFound": {
+      ar: "الطلب غير موجود",
+      fr: "Commande introuvable",
+      en: "Order not found",
+    },
+    "checkout.orderNotFoundDesc": {
+      ar: "هذا الطلب غير متوفر أو تم حذفه.",
+      fr: "Cette commande n'est pas disponible ou a été supprimée.",
+      en: "This order is not available or has been deleted.",
+    },
   }
 

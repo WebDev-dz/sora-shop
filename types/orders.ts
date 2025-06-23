@@ -4,9 +4,9 @@ export interface CreateOrder {
     payment_method: string
     payment_method_title: string
     set_paid: boolean
-    billing: Billing
+    billing?: Billing
     shipping: Shipping
-    line_items: LineItem[]
+    line_items: {product_id: number, quantity: number }[]
     shipping_lines: ShippingLine[]
   }
 
@@ -58,13 +58,13 @@ export interface Order {
   export interface Shipping {
     first_name: string
     last_name: string
-    company: string
+    company?: string
     address_1: string
-    address_2: string
+    address_2?: string
     city: string
     state: string
-    postcode: string
-    country: string
+    postcode?: string
+    country?: string
   }
 
   export interface Billing {
